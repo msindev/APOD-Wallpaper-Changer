@@ -30,20 +30,22 @@ downloaded_data = data.json()
 image_url = downloaded_data['url']
 image_name = image_url[image_url.rindex('/') + 1 : ]
 
-image = requests.get(image_url)
-try:
-    image.raise_for_status()
-except Exception as e:
-    print("Error encountered: %s" % (e))
-    exit(0)
-
-img = Image.open(BytesIO(image.content))
-
 dir_to_save = 'C:\\APOD\\'
+
 if not os.path.exists(dir_to_save):
     os.makedirs(dir_to_save)
 
-image_path = os.path.join(dir_to_save, image_name)
-img.save(image_path)
+if not image_name in os.listdir(dir_to_save):
+    image = requests.get(image_url)
+    try:
+        image.raise_for_status()
+    except Exception as e:
+        print("Error encountered: %s" % (e))
+        exit(0)
 
-ctypes.windll.user32.SystemParametersInfoW(20, 0, image_path , 0)
+    img = Image.open(BytesIO(image.content))
+
+    image_path = os.path.join(dir_to_save, image_name)
+    img.save(image_path)
+
+    ctypes.windll.user32.SystemParametersInfoW(20, 0, image_path , 0)
