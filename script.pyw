@@ -49,3 +49,7 @@ if not image_name in os.listdir(dir_to_save):
     img.save(image_path)
 
     ctypes.windll.user32.SystemParametersInfoW(20, 0, image_path , 0)
+
+else:
+    image_path = os.path.join(dir_to_save, image_name)
+    ctypes.windll.user32.SystemParametersInfoW(20, 0, image_path , 0)
