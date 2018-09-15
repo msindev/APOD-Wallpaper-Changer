@@ -1,6 +1,8 @@
 # Import necessary libraries and modules
 
 import requests
+from PIL import Image
+from io import BytesIO
 
 # Set API Key. Replace DEMO_KEY with your key to get more rate limits
 # Default request limit for DEMO_KEY : Hourly Limit: 30 requests per IP address per hour
@@ -23,7 +25,7 @@ except Exception as e:
 
 downloaded_data = data.json()
 
-image_url = downloaded_data[hdurl]
+image_url = downloaded_data['url']
 
 image = requests.get(image_url)
 try:
@@ -31,3 +33,5 @@ try:
 except Exception as e:
     print("Error encountered: %s" % (e))
     exit(0)
+
+img = Image.open(BytesIO(image.content))
