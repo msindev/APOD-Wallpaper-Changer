@@ -38,11 +38,12 @@ def getImage():
 
     image_url = downloaded_data['url']
     image_name = image_url[image_url.rindex('/') + 1 : ]
+    image_path = ""
 
     if not os.path.exists(directory()):
         os.makedirs(directory)
 
-    if not image_name in os.listdir(dir_to_save):
+    if not image_name in os.listdir(directory()):
         image = requests.get(image_url)
         try:
             image.raise_for_status()
@@ -54,16 +55,20 @@ def getImage():
 
         image_path = os.path.join(directory(), image_name)
         img.save(image_path)
+    else:
+        image_path = os.path.join(directory(), image_name)
+    return image_path
 
 def setWallpaper(image_path):
-    if paltform.system() == "Windows":
+    if platform.system() == "Windows":
         ctypes.windll.user32.SystemParametersInfoW(20, 0, image_path , 0)
     elif platform.system() == "Linux":
-        gsettings set org.gnome.desktop.background picture-uri 'file:///'+image_path
+        command = "gconftool-2 --set /desktop/gnome/background/picture_filename --type string '%s'" % image_path
+        status, output = commands.getstatusoutput(command)
 
 def main():
-    getImage()
-    setWallpaper()
+    image_path = getImage()
+    setWallpaper(image_path)
 
 if __name__ == "__main__":
     main()
