@@ -67,8 +67,9 @@ def setWallpaper(image_path):
         status, output = commands.getstatusoutput(command)
 
 def main():
-    image_path = getImage()
-    setWallpaper(image_path)
-
+    while(true):
+        image_path = getImage()
+        setWallpaper(image_path)
+        time.sleep(3600)
 if __name__ == "__main__":
     main()
