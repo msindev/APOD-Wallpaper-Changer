@@ -37,7 +37,7 @@ def getImage():
 
     downloaded_data = data.json()
 
-    image_url = downloaded_data['url']
+    image_url = downloaded_data['hdurl']
     image_name = image_url[image_url.rindex('/') + 1 : ]
     image_path = ""
 
