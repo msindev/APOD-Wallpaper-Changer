@@ -6,6 +6,7 @@ from io import BytesIO
 import os
 import platform
 import ctypes
+import time
 
 def directory():
     if platform.system() == "Windows":
