@@ -7,6 +7,6 @@ pythonw.exe script.py
 ```
 LINUX-
 ```
-pythonw script.py
+python script.py
 ```
 To execute this program on a daily basis, you can use Task Scheduler in Windows, or cron in LINUX to start the script automatically at startup and execute the program.
